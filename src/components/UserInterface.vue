@@ -2,7 +2,7 @@
     <div>
         <v-toolbar app dark>
             <v-toolbar-title class="headline">
-                <span>M.Sc. Thesis Result</span>
+                <span>M.S. Thesis Result</span>
                 <span class="font-weight-light"> | Amin Zabardast</span>
             </v-toolbar-title>
             <v-spacer></v-spacer>
