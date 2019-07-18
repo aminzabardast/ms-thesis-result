@@ -37,28 +37,9 @@
 
                 this.createWorld()
 
-                let positions = new Float32Array( loadedData.length * 3 );
-                let colors = new Float32Array( loadedData.length * 3 );
-                let scales = new Float32Array( loadedData.length );
-
                 // Cloud
 
-                _.forEach(loadedData, function (datum, idx) {
-                    datum = datum.split(' ')
-                    positions[ 3*idx ] = parseFloat(datum[0])
-                    positions[ 3*idx + 1 ] = parseFloat(datum[1]);
-                    positions[ 3*idx + 2 ] = parseFloat(datum[2]);
-                    colors[ 3*idx ] = parseFloat(datum[3])/255
-                    colors[ 3*idx + 1 ] = parseFloat(datum[4])/255;
-                    colors[ 3*idx + 2 ] = parseFloat(datum[5])/255;
-                    scales[ idx ] = 1
-                })
-
-                let geometry = new THREE.BufferGeometry();
-                geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
-                geometry.addAttribute( 'color', new THREE.BufferAttribute( colors, 3))
-                geometry.addAttribute( 'scale', new THREE.BufferAttribute( scales, 1 ) );
-                geometry.rotateX(90)
+                this.createGeometry()
 
                 let material = new THREE.PointsMaterial({
                     vertexColors: THREE.VertexColors,
@@ -113,6 +94,26 @@
             createWorld: function () {
                 scene = new THREE.Scene();
                 scene.background = new THREE.Color( 0x777777 );
+            },
+            createGeometry: function () {
+                let positions = new Float32Array( loadedData.length * 3 );
+                let colors = new Float32Array( loadedData.length * 3 );
+                let scales = new Float32Array( loadedData.length );
+                _.forEach(loadedData, function (datum, idx) {
+                    datum = datum.split(' ')
+                    positions[ 3*idx ] = parseFloat(datum[0])
+                    positions[ 3*idx + 1 ] = parseFloat(datum[1]);
+                    positions[ 3*idx + 2 ] = parseFloat(datum[2]);
+                    colors[ 3*idx ] = parseFloat(datum[3])/255
+                    colors[ 3*idx + 1 ] = parseFloat(datum[4])/255;
+                    colors[ 3*idx + 2 ] = parseFloat(datum[5])/255;
+                    scales[ idx ] = 1
+                })
+                let geometry = new THREE.BufferGeometry();
+                geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
+                geometry.addAttribute( 'color', new THREE.BufferAttribute( colors, 3))
+                geometry.addAttribute( 'scale', new THREE.BufferAttribute( scales, 1 ) );
+                geometry.rotateX(90)
             }
         },
         mounted() {
