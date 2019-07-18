@@ -34,20 +34,15 @@
 
                 this.createCamera()
 
-                // World
-
-                this.createWorld()
-
                 // Cloud
 
                 this.createGeometry()
 
-                let material = new THREE.PointsMaterial({
-                    vertexColors: THREE.VertexColors,
-                    size: .3
-                });
-                particles = new THREE.Points( geometry, material );
+                // World
+
+                this.createWorld()
                 scene.add( particles );
+
                 //
                 renderer = new THREE.WebGLRenderer( { antialias: false } );
                 renderer.setPixelRatio( window.devicePixelRatio );
@@ -115,6 +110,11 @@
                 geometry.addAttribute( 'color', new THREE.BufferAttribute( colors, 3))
                 geometry.addAttribute( 'scale', new THREE.BufferAttribute( scales, 1 ) );
                 geometry.rotateX(90)
+                let material = new THREE.PointsMaterial({
+                    vertexColors: THREE.VertexColors,
+                    size: .3
+                });
+                particles = new THREE.Points( geometry, material );
             }
         },
         mounted() {
