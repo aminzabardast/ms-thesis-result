@@ -32,26 +32,26 @@
 
                 // Camera
 
-                this.createCamera()
+                this.createCamera();
 
                 // Cloud
 
-                this.createGeometry()
+                this.createGeometry();
 
                 // World
 
-                this.createWorld()
+                this.createWorld();
                 scene.add( particles );
 
                 // Renderer
 
-                this.createRenderer()
+                this.createRenderer();
 
                 // Controls
 
-                this.createControls()
+                this.createControls();
 
-                camera.lookAt(geometry.center())
+                camera.lookAt(geometry.center());
 
                 this.addingStats(true)
 
@@ -86,17 +86,17 @@
                 let scales = new Float32Array( loadedData.length );
                 _.forEach(loadedData, function (datum, idx) {
                     datum = datum.split(' ')
-                    positions[ 3*idx ] = parseFloat(datum[0])
+                    positions[ 3*idx ] = parseFloat(datum[0]);
                     positions[ 3*idx + 1 ] = parseFloat(datum[1]);
                     positions[ 3*idx + 2 ] = parseFloat(datum[2]);
-                    colors[ 3*idx ] = parseFloat(datum[3])/255
+                    colors[ 3*idx ] = parseFloat(datum[3])/255;
                     colors[ 3*idx + 1 ] = parseFloat(datum[4])/255;
                     colors[ 3*idx + 2 ] = parseFloat(datum[5])/255;
                     scales[ idx ] = 1
                 })
                 geometry = new THREE.BufferGeometry();
                 geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
-                geometry.addAttribute( 'color', new THREE.BufferAttribute( colors, 3))
+                geometry.addAttribute( 'color', new THREE.BufferAttribute( colors, 3));
                 geometry.addAttribute( 'scale', new THREE.BufferAttribute( scales, 1 ) );
                 geometry.rotateX(90)
                 let material = new THREE.PointsMaterial({
@@ -132,15 +132,15 @@
             },
             loadResult: function (file) {
                 $.get(file, function(data) {
-                    data = data.split('\n')
-                    loadedData = _.slice(data, 14, data.length-2)
+                    data = data.split('\n');
+                    loadedData = _.slice(data, 14, data.length-2);
                     this.init();
                     this.animate();
                 }.bind(this));
             }
         },
         mounted() {
-            let file = 'result_files/s6c.ply'
+            let file = 'result_files/s6c.ply';
             this.loadResult(file)
         }
     }
