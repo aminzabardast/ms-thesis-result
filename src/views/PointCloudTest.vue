@@ -5,48 +5,117 @@
 </template>
 
 <script>
-    import * as Three from 'three'
+    import * as THREE from 'three';
+    import * as Stats from 'stats-js';
+    import * as $ from 'jquery'
+    import * as _ from 'lodash'
+    import * as TrackballControls from 'three-trackballcontrols'
+
+    let container, stats;
+    let camera, scene, renderer;
+    let particles;
+    let loadedData;
+    let controls;
 
     export default {
         name: "PointCloudTest",
         data() {
             return {
-                camera: null,
-                scene: null,
-                renderer: null,
-                mesh: null
+
             }
         },
         methods: {
             init: function() {
-                let container = document.getElementById('container');
 
-                this.camera = new Three.PerspectiveCamera(70, container.clientWidth/container.clientHeight, 0.01, 10);
-                this.camera.position.z = 1;
+                container = $("#container");
 
-                this.scene = new Three.Scene();
+                // Camera
 
-                let geometry = new Three.BoxGeometry(0.2, 0.2, 0.2);
-                let material = new Three.MeshNormalMaterial();
+                camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 10000 );
+                camera.position.z = 50;
 
-                this.mesh = new Three.Mesh(geometry, material);
-                this.scene.add(this.mesh);
+                // World
 
-                this.renderer = new Three.WebGLRenderer({antialias: true});
-                this.renderer.setSize(container.clientWidth, container.clientHeight);
-                container.appendChild(this.renderer.domElement);
+                scene = new THREE.Scene();
+
+                let positions = new Float32Array( loadedData.length * 3 );
+                let colors = new Float32Array( loadedData.length * 3 );
+                let scales = new Float32Array( loadedData.length );
+                scene.background = new THREE.Color( 0x777777 );
+
+                // Cloud
+
+                _.forEach(loadedData, function (datum, idx) {
+                    datum = datum.split(' ')
+                    positions[ 3*idx ] = parseFloat(datum[0])
+                    positions[ 3*idx + 1 ] = parseFloat(datum[1]);
+                    positions[ 3*idx + 2 ] = parseFloat(datum[2]);
+                    colors[ 3*idx ] = parseFloat(datum[3])/255
+                    colors[ 3*idx + 1 ] = parseFloat(datum[4])/255;
+                    colors[ 3*idx + 2 ] = parseFloat(datum[5])/255;
+                    scales[ idx ] = 1
+                })
+
+                let geometry = new THREE.BufferGeometry();
+                geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
+                geometry.addAttribute( 'color', new THREE.BufferAttribute( colors, 3))
+                geometry.addAttribute( 'scale', new THREE.BufferAttribute( scales, 1 ) );
+                geometry.rotateX(90)
+
+                let material = new THREE.PointsMaterial({
+                    vertexColors: THREE.VertexColors,
+                    size: .3
+                });
+                particles = new THREE.Points( geometry, material );
+                scene.add( particles );
+                //
+                renderer = new THREE.WebGLRenderer( { antialias: false } );
+                renderer.setPixelRatio( window.devicePixelRatio );
+                renderer.setSize( window.innerWidth, window.innerHeight );
+                container.append( renderer.domElement );
+
+                controls = new TrackballControls( camera, renderer.domElement );
+                controls.rotateSpeed = 5.0;
+                controls.zoomSpeed = 2;
+                controls.panSpeed = 1;
+                controls.noZoom = false;
+                controls.noPan = true;
+                controls.staticMoving = true;
+                controls.dynamicDampingFactor = 0.3;
+                controls.keys = [ 65, 83, 68 ];
+                controls.addEventListener( 'change', this.render );
+
+                camera.lookAt(geometry.center())
+
+                stats = new Stats();
+                // container.append( stats.dom );
+                window.addEventListener( 'resize', this.onWindowResize, false );
 
             },
             animate: function() {
-                requestAnimationFrame(this.animate);
-                this.mesh.rotation.x += 0.01;
-                this.mesh.rotation.y += 0.02;
-                this.renderer.render(this.scene, this.camera);
+                requestAnimationFrame( this.animate );
+                this.render();
+                controls.update();
+                stats.update();
+            },
+            onWindowResize: function () {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize( window.innerWidth, window.innerHeight );
+                controls.handleResize();
+                this.render();
+            },
+            render: function () {
+                renderer.render( scene, camera );
             }
         },
         mounted() {
-            this.init();
-            this.animate();
+            $.get('result_files/s6c.ply', function(data) {
+                data = data.split('\n')
+                loadedData = _.slice(data, 14, data.length-2)
+                this.init();
+                this.animate();
+            }.bind(this));
         }
     }
 </script>
