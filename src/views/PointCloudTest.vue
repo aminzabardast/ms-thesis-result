@@ -47,16 +47,9 @@
 
                 this.createRenderer()
 
-                controls = new TrackballControls( camera, renderer.domElement );
-                controls.rotateSpeed = 5.0;
-                controls.zoomSpeed = 2;
-                controls.panSpeed = 1;
-                controls.noZoom = false;
-                controls.noPan = true;
-                controls.staticMoving = true;
-                controls.dynamicDampingFactor = 0.3;
-                controls.keys = [ 65, 83, 68 ];
-                controls.addEventListener( 'change', this.render );
+                // Controls
+
+                this.createControls()
 
                 camera.lookAt(geometry.center())
 
@@ -119,6 +112,18 @@
                 renderer.setPixelRatio( window.devicePixelRatio );
                 renderer.setSize( window.innerWidth, window.innerHeight );
                 container.append( renderer.domElement );
+            },
+            createControls: function () {
+                controls = new TrackballControls( camera, renderer.domElement );
+                controls.rotateSpeed = 5.0;
+                controls.zoomSpeed = 2;
+                controls.panSpeed = 1;
+                controls.noZoom = false;
+                controls.noPan = true;
+                controls.staticMoving = true;
+                controls.dynamicDampingFactor = 0.3;
+                controls.keys = [ 65, 83, 68 ];
+                controls.addEventListener( 'change', this.render );
             }
         },
         mounted() {
