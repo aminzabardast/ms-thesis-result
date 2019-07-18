@@ -53,9 +53,7 @@
 
                 camera.lookAt(geometry.center())
 
-                stats = new Stats();
-                // container.append( stats.dom );
-                window.addEventListener( 'resize', this.onWindowResize, false );
+                this.addingStats(true)
 
             },
             animate: function() {
@@ -124,15 +122,26 @@
                 controls.dynamicDampingFactor = 0.3;
                 controls.keys = [ 65, 83, 68 ];
                 controls.addEventListener( 'change', this.render );
+            },
+            addingStats: function (debug = true) {
+                stats = new Stats();
+                if (debug) {
+                    container.append( stats.dom );
+                }
+                window.addEventListener( 'resize', this.onWindowResize, false );
+            },
+            loadResult: function (file) {
+                $.get(file, function(data) {
+                    data = data.split('\n')
+                    loadedData = _.slice(data, 14, data.length-2)
+                    this.init();
+                    this.animate();
+                }.bind(this));
             }
         },
         mounted() {
-            $.get('result_files/s6c.ply', function(data) {
-                data = data.split('\n')
-                loadedData = _.slice(data, 14, data.length-2)
-                this.init();
-                this.animate();
-            }.bind(this));
+            let file = 'result_files/s6c.ply'
+            this.loadResult(file)
         }
     }
 </script>
