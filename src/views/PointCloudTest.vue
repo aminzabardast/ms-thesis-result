@@ -22,7 +22,7 @@
         name: "PointCloudTest",
         data() {
             return {
-
+                debug: false
             }
         },
         methods: {
@@ -53,7 +53,7 @@
 
                 camera.lookAt(geometry.center());
 
-                this.addingStats(true)
+                this.addingStats(this.debug)
 
             },
             animate: function() {

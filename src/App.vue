@@ -1,19 +1,6 @@
 <template>
   <v-app>
-    <v-toolbar app>
-      <v-toolbar-title class="headline">
-        <span>M.Sc. Thesis</span>
-        <span class="font-weight-light"> Result</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn to="/">
-        <span>Home</span>
-      </v-btn>
-      <v-btn to="about">
-        <span>About</span>
-      </v-btn>
-    </v-toolbar>
-
+    <UserInterface/>
     <v-content>
         <router-view></router-view>
     </v-content>
@@ -21,14 +8,17 @@
 </template>
 
 <script>
-export default {
-  name: 'App',
-  components: {
-  },
-  data () {
-    return {
-      //
+  import UserInterface from './components/UserInterface'
+
+  export default {
+    name: 'App',
+    components: {
+      UserInterface
+    },
+    data () {
+      return {
+        //
+      }
     }
   }
-}
 </script>
