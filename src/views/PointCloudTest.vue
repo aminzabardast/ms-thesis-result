@@ -43,11 +43,9 @@
                 this.createWorld()
                 scene.add( particles );
 
-                //
-                renderer = new THREE.WebGLRenderer( { antialias: false } );
-                renderer.setPixelRatio( window.devicePixelRatio );
-                renderer.setSize( window.innerWidth, window.innerHeight );
-                container.append( renderer.domElement );
+                // Renderer
+
+                this.createRenderer()
 
                 controls = new TrackballControls( camera, renderer.domElement );
                 controls.rotateSpeed = 5.0;
@@ -115,6 +113,12 @@
                     size: .3
                 });
                 particles = new THREE.Points( geometry, material );
+            },
+            createRenderer: function () {
+                renderer = new THREE.WebGLRenderer( { antialias: false } );
+                renderer.setPixelRatio( window.devicePixelRatio );
+                renderer.setSize( window.innerWidth, window.innerHeight );
+                container.append( renderer.domElement );
             }
         },
         mounted() {
