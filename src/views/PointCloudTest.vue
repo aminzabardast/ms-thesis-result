@@ -35,12 +35,11 @@
 
                 // World
 
-                scene = new THREE.Scene();
+                this.createWorld()
 
                 let positions = new Float32Array( loadedData.length * 3 );
                 let colors = new Float32Array( loadedData.length * 3 );
                 let scales = new Float32Array( loadedData.length );
-                scene.background = new THREE.Color( 0x777777 );
 
                 // Cloud
 
@@ -110,6 +109,10 @@
             createCamera: function () {
                 camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 10000 );
                 camera.position.z = 50;
+            },
+            createWorld: function () {
+                scene = new THREE.Scene();
+                scene.background = new THREE.Color( 0x777777 );
             }
         },
         mounted() {
