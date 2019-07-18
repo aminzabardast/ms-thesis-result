@@ -16,6 +16,7 @@
     let particles;
     let loadedData;
     let controls;
+    let geometry;
 
     export default {
         name: "PointCloudTest",
@@ -109,7 +110,7 @@
                     colors[ 3*idx + 2 ] = parseFloat(datum[5])/255;
                     scales[ idx ] = 1
                 })
-                let geometry = new THREE.BufferGeometry();
+                geometry = new THREE.BufferGeometry();
                 geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
                 geometry.addAttribute( 'color', new THREE.BufferAttribute( colors, 3))
                 geometry.addAttribute( 'scale', new THREE.BufferAttribute( scales, 1 ) );
