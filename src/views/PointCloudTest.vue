@@ -31,8 +31,7 @@
 
                 // Camera
 
-                camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 10000 );
-                camera.position.z = 50;
+                this.createCamera()
 
                 // World
 
@@ -107,6 +106,10 @@
             },
             render: function () {
                 renderer.render( scene, camera );
+            },
+            createCamera: function () {
+                camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 10000 );
+                camera.position.z = 50;
             }
         },
         mounted() {
