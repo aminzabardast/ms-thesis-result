@@ -1,3 +1,3 @@
-module.exports = {
-    publicPath: '/msc-thesis-result/'
-}
+// module.exports = {
+//     publicPath: '/msc-thesis-result/'
+// };
