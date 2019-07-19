@@ -105,7 +105,7 @@
                 geometry.rotateX(90)
                 let material = new THREE.PointsMaterial({
                     vertexColors: THREE.VertexColors,
-                    size: .3
+                    size: .5
                 });
                 particles = new THREE.Points( geometry, material );
             },
