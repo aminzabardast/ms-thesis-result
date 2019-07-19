@@ -1,6 +1,15 @@
 <template>
     <div>
         <div id="container"></div>
+
+        <v-dialog v-model="loadingDialog" persistent width="300">
+            <v-card dark>
+                <v-card-text>
+                    Please stand by
+                    <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
@@ -22,7 +31,8 @@
         name: "PointCloudTest",
         data() {
             return {
-                debug: false
+                debug: false,
+                loadingDialog: true,
             }
         },
         methods: {
@@ -67,6 +77,7 @@
                 stats.update();
             },
             onWindowResize: function () {
+                // Handling windows resize
                 camera.aspect = window.innerWidth / window.innerHeight;
                 camera.updateProjectionMatrix();
                 renderer.setSize( window.innerWidth, window.innerHeight );
@@ -74,16 +85,20 @@
                 this.render();
             },
             render: function () {
+                // Rendering
                 renderer.render( scene, camera );
             },
             createCamera: function () {
+                // Creating Camera
                 camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 10000 );
             },
             createWorld: function () {
+                // Creating the Scene
                 scene = new THREE.Scene();
                 scene.background = new THREE.Color( 0x777777 );
             },
             createGeometry: function () {
+                // Creating Geometry
                 let positions = new Float32Array( loadedData.length * 3 );
                 let colors = new Float32Array( loadedData.length * 3 );
                 let scales = new Float32Array( loadedData.length );
@@ -103,10 +118,12 @@
                 geometry.addAttribute( 'color', new THREE.BufferAttribute( colors, 3));
                 geometry.addAttribute( 'scale', new THREE.BufferAttribute( scales, 1 ) );
                 geometry.rotateX(90)
+                // Creating materials
                 let material = new THREE.PointsMaterial({
                     vertexColors: THREE.VertexColors,
-                    size: .5
+                    size: .3
                 });
+                // Creating Particles
                 particles = new THREE.Points( geometry, material );
             },
             createRenderer: function () {
@@ -143,6 +160,7 @@
                         loadedData = _.slice(data, 10, data.length-2);
                         this.init();
                         this.animate();
+                        this.loading(false)
                     }.bind(this),
                 });
             },
@@ -151,8 +169,9 @@
                     type: "GET",
                     url: file,
                     beforeSend: function () {
+                        this.loading(true)
                         scene.remove(scene.children[0]);
-                    },
+                    }.bind(this),
                     success: function (data) {
                         data = data.split('\n');
                         loadedData = _.slice(data, 10, data.length-2);
@@ -160,6 +179,7 @@
                         scene.add(particles);
                         this.focusCamera();
                         this.animate();
+                        this.loading(false)
                     }.bind(this),
                 });
             },
@@ -167,6 +187,9 @@
                 let bb = new THREE.Box3();
                 bb.setFromObject(scene.children[0]);
                 bb.getCenter(controls.target);
+            },
+            loading: function (enabled = true) {
+                this.loadingDialog = enabled
             }
         },
         watch: {
