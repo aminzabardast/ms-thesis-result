@@ -102,19 +102,19 @@
                     {name: 'All', value:'all', number:35, furtherDivide: []},
                     {name: 'Smoke', value:'smoke', number:5, furtherDivide: [
                             {
-                                name: 'With Smoke', value: 'w'
+                                name: 'Without Smoke', value: 'wo'
                             },
                             {
-                                name: 'Without Smoke', value: 'wo'
-                            }
+                                name: 'With Smoke', value: 'w'
+                            },
                         ]},
                     {name: 'Blood', value:'blood', number:2, furtherDivide: [
                             {
-                                name: 'With Blood', value: 'w'
+                                name: 'Without Blood', value: 'wo'
                             },
                             {
-                                name: 'Without Blood', value: 'wo'
-                            }
+                                name: 'With Blood', value: 'w'
+                            },
                         ]},
                 ];
                 _.forEach(preprocessedData, function (datum) {
