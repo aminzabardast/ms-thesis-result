@@ -6,7 +6,7 @@
                 <span class="font-weight-light"> | Amin Zabardast</span>
             </v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn dark flat to="about">
+            <v-btn dark flat @click="aboutDialog = true">
                 <span>About</span>
             </v-btn>
             <v-btn dark flat @click="dataSelectDialog = true">
@@ -14,7 +14,7 @@
             </v-btn>
         </v-toolbar>
 
-        <v-dialog v-model="dataSelectDialog" scrollable max-width="500px">
+        <v-dialog v-model="dataSelectDialog" dark scrollable max-width="500px">
             <v-card>
                 <v-card-title>Select a Data Point</v-card-title>
                 <v-divider></v-divider>
@@ -84,14 +84,31 @@
             data: function () {
                 let data = [];
                 let preprocessedData = [
-                    {name: 'All', value:'all', number:35},
+                    {name: 'All', value:'all', number:35, furtherDivide: []},
+                    {name: 'Smoke', value:'smoke', number:5, furtherDivide: [
+                            {
+                                name: 'With Smoke', value: 'w'
+                            },
+                            {
+                                name: 'Without Smoke', value: 'wo'
+                            }
+                        ]},
                 ];
                 _.forEach(preprocessedData, function (datum) {
                     for (let i=1; i<= datum.number; i++) {
-                        data.push({
-                            name: `${datum.name}/${i}`,
-                            value: `${datum.value}/${i}`
-                        })
+                        if (datum.furtherDivide.length > 0) {
+                            _.forEach(datum.furtherDivide, function (division) {
+                                data.push({
+                                    name: `${division.name} / ${i}`,
+                                    value: `${datum.value}/${i}${division.value}`
+                                })
+                            })
+                        } else {
+                            data.push({
+                                name: `${datum.name} / ${i}`,
+                                value: `${datum.value}/${i}`
+                            })
+                        }
                     }
                 });
                 return data
