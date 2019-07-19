@@ -39,6 +39,20 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
+
+        <v-dialog v-model="aboutDialog" dark fullscreen hide-overlay transition="dialog-bottom-transition">
+            <v-card>
+                <v-toolbar dark>
+                    <v-btn icon dark @click="aboutDialog = false">
+                        <v-icon>close</v-icon>
+                    </v-btn>
+                    <v-toolbar-title>About</v-toolbar-title>
+                </v-toolbar>
+                <v-card-text>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi cumque error ex excepturi harum modi molestias numquam officia omnis quaerat quidem saepe sapiente sed, soluta tempora temporibus totam ullam vitae! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus esse ipsa porro quia vitae. Distinctio eius neque quae tempora. Dolore esse ipsam labore maxime natus nemo officia omnis repellendus voluptates? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti dolorum explicabo fugit quo. Ad alias animi corporis cupiditate deserunt dolor, earum et eum illo labore mollitia odio provident sapiente, vero. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta dolore eaque impedit minus nemo ullam. Esse eveniet neque tempore. Aspernatur eum excepturi veritatis vero. Aut doloribus expedita odit. Porro, unde.
+                </v-card-text>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
@@ -50,6 +64,7 @@
         data () {
             return {
                 dataSelectDialog: false,
+                aboutDialog: false,
                 method: `${this.$route.params.method}`,
                 tempMethod: `${this.$route.params.method}`,
                 dataPoint: `${this.$route.params.type}/${this.$route.params.number}`,
