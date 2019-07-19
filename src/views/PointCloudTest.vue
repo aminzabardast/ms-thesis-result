@@ -86,15 +86,16 @@
                 let scales = new Float32Array( loadedData.length );
                 _.forEach(loadedData, function (datum, idx) {
                     datum = datum.split(' ')
-                    positions[ 3*idx ] = parseFloat(datum[0]);
-                    positions[ 3*idx + 1 ] = parseFloat(datum[1]);
-                    positions[ 3*idx + 2 ] = parseFloat(datum[2]);
-                    colors[ 3*idx ] = parseFloat(datum[3])/255;
-                    colors[ 3*idx + 1 ] = parseFloat(datum[4])/255;
-                    colors[ 3*idx + 2 ] = parseFloat(datum[5])/255;
-                    scales[ idx ] = 1
+                    positions[3*idx] = parseFloat(datum[0]);
+                    positions[3*idx+1] = parseFloat(datum[1]);
+                    positions[3*idx+2] = parseFloat(datum[2]);
+                    colors[3*idx] = parseFloat(datum[3])/255;
+                    colors[3*idx+1] = parseFloat(datum[4])/255;
+                    colors[3*idx+2] = parseFloat(datum[5])/255;
+                    scales[idx] = 1
                 })
                 geometry = new THREE.BufferGeometry();
+                geometry.name = 'cloud';
                 geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
                 geometry.addAttribute( 'color', new THREE.BufferAttribute( colors, 3));
                 geometry.addAttribute( 'scale', new THREE.BufferAttribute( scales, 1 ) );
