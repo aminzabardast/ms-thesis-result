@@ -108,6 +108,14 @@
                                 name: 'Without Smoke', value: 'wo'
                             }
                         ]},
+                    {name: 'Blood', value:'blood', number:2, furtherDivide: [
+                            {
+                                name: 'With Blood', value: 'w'
+                            },
+                            {
+                                name: 'Without Blood', value: 'wo'
+                            }
+                        ]},
                 ];
                 _.forEach(preprocessedData, function (datum) {
                     for (let i=1; i<= datum.number; i++) {
