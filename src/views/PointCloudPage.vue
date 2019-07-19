@@ -77,7 +77,7 @@
                 renderer.render( scene, camera );
             },
             createCamera: function () {
-                camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 10000 );
+                camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 10000 );
             },
             createWorld: function () {
                 scene = new THREE.Scene();
@@ -140,7 +140,7 @@
                     url: file,
                     success: function (data) {
                         data = data.split('\n');
-                        loadedData = _.slice(data, 14, data.length-2);
+                        loadedData = _.slice(data, 10, data.length-2);
                         this.init();
                         this.animate();
                     }.bind(this),
@@ -155,7 +155,7 @@
                     },
                     success: function (data) {
                         data = data.split('\n');
-                        loadedData = _.slice(data, 14, data.length-2);
+                        loadedData = _.slice(data, 10, data.length-2);
                         this.createGeometry();
                         scene.add(particles);
                         this.focusCamera();
