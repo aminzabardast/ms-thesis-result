@@ -8,7 +8,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/c/smoke/1',
+      redirect: '/c/all/1',
       name: 'root',
     },
     {
