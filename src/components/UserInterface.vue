@@ -59,7 +59,7 @@
                     {name: 'Semi-Global Matching', value: 'sgm'},
                     {name: 'Type S Network', value: 's'},
                     {name: 'Type C Network', value: 'c'},
-                    {name: 'Tuype CS Network', value: 'cs'},
+                    {name: 'Type CS Network', value: 'cs'},
                 ]
             }
         },
@@ -85,7 +85,6 @@
                 let data = [];
                 let preprocessedData = [
                     {name: 'All', value:'all', number:35},
-                    {name: 'Smoke', value:'smoke', number:10},
                 ];
                 _.forEach(preprocessedData, function (datum) {
                     for (let i=1; i<= datum.number; i++) {
