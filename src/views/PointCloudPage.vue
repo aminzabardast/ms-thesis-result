@@ -121,7 +121,7 @@
                 // Creating materials
                 let material = new THREE.PointsMaterial({
                     vertexColors: THREE.VertexColors,
-                    size: .3
+                    size: .5
                 });
                 // Creating Particles
                 particles = new THREE.Points( geometry, material );
