@@ -51,7 +51,7 @@
 
                 this.createControls();
 
-                camera.lookAt(geometry.center());
+                this.focusCamera()
 
                 this.addingStats(this.debug)
 
@@ -74,7 +74,6 @@
             },
             createCamera: function () {
                 camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 10000 );
-                camera.position.z = 50;
             },
             createWorld: function () {
                 scene = new THREE.Scene();
@@ -143,9 +142,38 @@
                     }.bind(this),
                 });
             },
+            loadNewResult: function (file) {
+                $.ajax({
+                    type: "GET",
+                    url: file,
+                    beforeSend: function () {
+                        scene.remove(scene.children[0]);
+                    },
+                    success: function (data) {
+                        data = data.split('\n');
+                        loadedData = _.slice(data, 14, data.length-2);
+                        this.createGeometry();
+                        scene.add(particles);
+                        this.focusCamera()
+                        this.animate();
+                    }.bind(this),
+                });
+            },
+            focusCamera: function () {
+                let bb = new THREE.Box3();
+                bb.setFromObject(scene.children[0]);
+                bb.getCenter(controls.target);
+            }
+        },
+        watch: {
+            '$route': function (to, from) {
+                let file = `result_files/${to.params.type}/${to.params.method}/${to.params.number}.ply`;
+                this.loadNewResult(file);
+            }
         },
         mounted() {
-            let file = 'result_files/s6c.ply';
+            let params = this.$route.params;
+            let file = `result_files/${params.type}/${params.method}/${params.number}.ply`;
             this.loadResult(file)
         }
     }

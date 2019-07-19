@@ -9,115 +9,97 @@
             <v-btn dark flat to="about">
                 <span>About</span>
             </v-btn>
-            <v-btn dark flat @click="methodSelectDialog = true">
-                Select Method
-            </v-btn>
-            <v-btn dark flat @click="dataTypeSelectDialog = true">
-                Select Data Type
+            <v-btn dark flat @click="dataSelectDialog = true">
+                Select Data Point
             </v-btn>
         </v-toolbar>
 
-        <v-dialog v-model="methodSelectDialog" scrollable max-width="300px">
+        <v-dialog v-model="dataSelectDialog" scrollable max-width="500px">
             <v-card>
-                <v-card-title>Select Method</v-card-title>
+                <v-card-title>Select a Data Point</v-card-title>
                 <v-divider></v-divider>
-                <v-card-text style="height: 300px;">
-                    <v-radio-group v-model="method" column>
-                        <v-radio label="Type C Network" value="c"></v-radio>
-                        <v-radio label="Type S Network" value="s"></v-radio>
-                        <v-radio label="Type CS Network" value="cs"></v-radio>
-                        <v-radio label="Block Matching" value="bm"></v-radio>
-                        <v-radio label="Semi-Global Matching" value="sgm"></v-radio>
-                    </v-radio-group>
+                <v-card-text style="max-height: 500px;">
+                    <v-layout wrap justify-space-between>
+                        <v-flex xs12 md6>
+                            <v-radio-group v-model="tempMethod" column>
+                                <v-radio v-for="method in methods" :key="method.value" :label="method.name" :value="method.value"></v-radio>
+                            </v-radio-group>
+                        </v-flex>
+                        <v-flex xs12 md6>
+                            <v-radio-group v-model="tempDataPoint" column>
+                                <v-radio v-for="datum in data" :key="datum.value" :label="datum.name" :value="datum.value"></v-radio>
+                            </v-radio-group>
+                        </v-flex>
+                    </v-layout>
                 </v-card-text>
                 <v-divider></v-divider>
                 <v-card-actions>
-                    <v-btn color="blue darken-1" flat @click="methodSelectDialog = false">Close</v-btn>
+                    <v-btn color="info" flat @click="closeDataSelectDialog">Close</v-btn>
+                    <v-btn color="success" @click="goTo" flat>Submit</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
-
-        <v-dialog v-model="dataTypeSelectDialog" scrollable max-width="300px">
-            <v-card>
-                <v-card-title>Select Method</v-card-title>
-                <v-divider></v-divider>
-                <v-card-text style="height: 300px;">
-                    <v-radio-group v-model="dataType" column>
-                        <v-radio label="All Data Points" value="all"></v-radio>
-                        <v-radio label="Smoke Data Points" value="smoke"></v-radio>
-                        <v-radio label="Blood Data Points" value="blood"></v-radio>
-                        <v-radio label="Angle Data Points" value="angle"></v-radio>
-                        <v-radio label="Distance Data Points" value="distance"></v-radio>
-                    </v-radio-group>
-                </v-card-text>
-                <v-divider></v-divider>
-                <v-card-actions>
-                    <v-btn color="blue darken-1" flat @click="dataTypeSelectDialog = false">Close</v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
-
-        <v-btn id="next" fab dark large depressed :disabled="this.disableNext" @click="next">
-            <v-icon dark>chevron_right</v-icon>
-        </v-btn>
-
-        <v-btn id="prev" fab dark large depressed :disabled="this.disablePrev" @click="prev">
-            <v-icon dark>chevron_left</v-icon>
-        </v-btn>
     </div>
 </template>
 
 <script>
     import * as _ from 'lodash'
+
     export default {
         name: "UserInterface",
         data () {
             return {
-                methodSelectDialog: false,
-                method: 'c',
-                dataTypeSelectDialog: false,
-                dataType: 'all',
-                maxData: {
-                    all: 4,
-                    smoke: 5,
-                    blood: 2,
-                    angle: 15,
-                    distance: 1
-                },
-                dataNumber: 1,
+                dataSelectDialog: false,
+                method: `${this.$route.params.method}`,
+                tempMethod: `${this.$route.params.method}`,
+                dataPoint: `${this.$route.params.type}/${this.$route.params.number}`,
+                tempDataPoint: `${this.$route.params.type}/${this.$route.params.number}`,
+                methods: [
+                    {name: 'Block Matching', value: 'bm'},
+                    {name: 'Semi-Global Matching', value: 'sgm'},
+                    {name: 'Type S Network', value: 's'},
+                    {name: 'Type C Network', value: 'c'},
+                    {name: 'Tuype CS Network', value: 'cs'},
+                ]
             }
         },
         methods: {
-            next: function () {
-                this.dataNumber++
+            closeDataSelectDialog: function () {
+                this.dataSelectDialog = false;
+                this.tempMethod = this.method;
+                this.tempDataPoint = this.dataPoint;
             },
-            prev: function () {
-                this.dataNumber--
+            goTo: function () {
+                this.$router.push({
+                    name: 'main',
+                    params: {
+                        method:this.tempMethod,
+                        type:this.tempDataPoint.split('/')[0], number:this.tempDataPoint.split('/')[1]
+                    }
+                });
+                this.dataSelectDialog = false
             }
         },
         computed: {
-            disableNext: function () {
-                return this.dataNumber === _.get(this.maxData, `${this.dataType}`)
-            },
-            disablePrev: function () {
-                return this.dataNumber === 1
+            data: function () {
+                let data = [];
+                let preprocessedData = [
+                    {name: 'All', value:'all', number:35},
+                    {name: 'Smoke', value:'smoke', number:10},
+                ];
+                _.forEach(preprocessedData, function (datum) {
+                    for (let i=1; i<= datum.number; i++) {
+                        data.push({
+                            name: `${datum.name}/${i}`,
+                            value: `${datum.value}/${i}`
+                        })
+                    }
+                });
+                return data
             }
         }
     }
 </script>
 
 <style scoped>
-    #next {
-        position: fixed;
-        top: 50%;
-        right: 2em;
-        z-index: 2;
-    }
-
-    #prev {
-        position: fixed;
-        top: 50%;
-        left: 2em;
-        z-index: 2;
-    }
 </style>
