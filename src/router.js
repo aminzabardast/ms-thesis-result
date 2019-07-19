@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
-import PointCloudTest from './views/PointCloudTest'
+import PointCloudPage from './views/PointCloudPage'
 
 Vue.use(Router)
 
@@ -15,7 +14,7 @@ export default new Router({
     {
       path: '/:method/:type/:number',
       name: 'main',
-      component: PointCloudTest
+      component: PointCloudPage
     }
   ]
 })

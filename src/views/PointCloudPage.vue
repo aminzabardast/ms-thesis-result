@@ -51,7 +51,11 @@
 
                 this.createControls();
 
+                // Focusing Camera
+
                 this.focusCamera()
+
+                // Adding stats if in debug mode
 
                 this.addingStats(this.debug)
 
@@ -154,7 +158,7 @@
                         loadedData = _.slice(data, 14, data.length-2);
                         this.createGeometry();
                         scene.add(particles);
-                        this.focusCamera()
+                        this.focusCamera();
                         this.animate();
                     }.bind(this),
                 });
@@ -166,7 +170,7 @@
             }
         },
         watch: {
-            '$route': function (to, from) {
+            '$route': function (to) {
                 let file = `result_files/${to.params.type}/${to.params.method}/${to.params.number}.ply`;
                 this.loadNewResult(file);
             }
