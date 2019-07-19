@@ -131,13 +131,17 @@
                 window.addEventListener( 'resize', this.onWindowResize, false );
             },
             loadResult: function (file) {
-                $.get(file, function(data) {
-                    data = data.split('\n');
-                    loadedData = _.slice(data, 14, data.length-2);
-                    this.init();
-                    this.animate();
-                }.bind(this));
-            }
+                $.ajax({
+                    type: "GET",
+                    url: file,
+                    success: function (data) {
+                        data = data.split('\n');
+                        loadedData = _.slice(data, 14, data.length-2);
+                        this.init();
+                        this.animate();
+                    }.bind(this),
+                });
+            },
         },
         mounted() {
             let file = 'result_files/s6c.ply';
