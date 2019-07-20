@@ -47,7 +47,7 @@
                 if (this.sub) {
                     return `${this.subs[this.sub]} ${this.types[this.$route.params.type]}`
                 } else {
-                    return this.$route.params.type
+                    return this.types[this.$route.params.type]
                 }
             }
         },
