@@ -37,38 +37,22 @@
         },
         methods: {
             init: function() {
-
                 container = $("#container");
-
                 // Camera
-
                 this.createCamera();
-
                 // Cloud
-
                 this.createGeometry();
-
                 // World
-
                 this.createWorld();
                 scene.add( particles );
-
                 // Renderer
-
                 this.createRenderer();
-
                 // Controls
-
                 this.createControls();
-
                 // Focusing Camera
-
                 this.focusCamera()
-
                 // Adding stats if in debug mode
-
                 this.addingStats(this.debug)
-
             },
             animate: function() {
                 requestAnimationFrame( this.animate );
@@ -207,8 +191,8 @@
 </script>
 
 <style scoped>
-    #container {
-        width: 100%;
-        height: 800px;
+    div#container{
+        position: fixed;
+        top: 0;
     }
 </style>
