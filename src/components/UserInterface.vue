@@ -1,5 +1,6 @@
 <template>
     <div>
+        <!-- Menu Toolbar -->
         <v-toolbar app dark>
             <v-toolbar-title class="headline">
                 <span>M.S. Thesis Result</span>
@@ -14,6 +15,7 @@
             </v-btn>
         </v-toolbar>
 
+        <!-- Method Selection Dialog -->
         <v-dialog v-model="dataSelectDialog" dark scrollable max-width="500px">
             <v-card>
                 <v-card-title>Select a Data Point</v-card-title>
@@ -40,6 +42,7 @@
             </v-card>
         </v-dialog>
 
+        <!-- About Dialog -->
         <v-dialog v-model="aboutDialog" dark fullscreen hide-overlay transition="dialog-bottom-transition">
             <v-card>
                 <v-toolbar dark>
