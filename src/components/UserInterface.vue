@@ -52,7 +52,35 @@
                     <v-toolbar-title>About</v-toolbar-title>
                 </v-toolbar>
                 <v-card-text>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi cumque error ex excepturi harum modi molestias numquam officia omnis quaerat quidem saepe sapiente sed, soluta tempora temporibus totam ullam vitae! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus esse ipsa porro quia vitae. Distinctio eius neque quae tempora. Dolore esse ipsam labore maxime natus nemo officia omnis repellendus voluptates? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti dolorum explicabo fugit quo. Ad alias animi corporis cupiditate deserunt dolor, earum et eum illo labore mollitia odio provident sapiente, vero. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta dolore eaque impedit minus nemo ullam. Esse eveniet neque tempore. Aspernatur eum excepturi veritatis vero. Aut doloribus expedita odit. Porro, unde.
+                    <h3 class="display-1">What is the purpose of this page?</h3>
+                    <p class="body-1">
+                        This page contains the resulting surfaces, reconstructed from stereo images withing the <a href="http://opencas.webarchiv.kit.edu/?q=tmidataset" target="_blank">TMI dataset</a>.
+                        These results are obtained within a masters' thesis research titled <strong>A Deep Learning Approach To Surface Reconstruction Using</strong>.
+                    </p>
+                    <p class="body-1">
+                        We created this page to act as a better viewing medium for our three-dimensional result since it is not possible to fully showcase them in images.
+                    </p>
+                    <h3 class="display-1">How can one access the thesis?</h3>
+                    <p class="body-1">
+                        The material for this thesis is not publicly available now.
+                        Please contact <a href="emailto:zabardast.amin@metu.edu.tr">zabardast.amin@metu.edu.tr</a> for more detail.
+                    </p>
+                    <h3 class="display-1">What is the TMI dataset?</h3>
+                    <p class="body-1">
+                        The TMI dataset is a collection of <i>in-vitro</i> stereo images collected from porcine organs in order to test surface reconstruction algorithms for Minimally Invasive Surgeries (MIS).
+                    </p>
+                    <h3 class="display-1">How can I use this website?</h3>
+                    <p class="body-1">
+                        You can select the data point and the reconstruction method by clicking on <strong>Select Data Point</strong> button.
+                        A three-dimensional reconstruction of the surface in point cloud format will be loaded into this viewer.
+                        You can hover around the surface by grabbing any point of the viewer and moving the cursor.
+                        You also can zoom in by scrolling.
+                    </p>
+                    <p class="body-1">
+                        This page is also touch screen friendly.
+                        You can hover around the surface by swiping to the left, right, top, or bottom of your touch device.
+                        You can also pinch the screen for zooming.
+                    </p>
                 </v-card-text>
             </v-card>
         </v-dialog>
