@@ -55,7 +55,7 @@
                     <h3 class="display-1">What is the purpose of this page?</h3>
                     <p class="body-1">
                         This page contains the resulting surfaces, reconstructed from stereo images withing the <a href="http://opencas.webarchiv.kit.edu/?q=tmidataset" target="_blank">TMI dataset</a>.
-                        These results are obtained within a masters' thesis research titled <strong>A Deep Learning Approach To Surface Reconstruction Using</strong>.
+                        These results are obtained within a masters' thesis research titled <strong>"A deep learning approach to surface reconstruction for surgical navigation during laparoscopic, endoscopic or robotic surgery"</strong>.
                     </p>
                     <p class="body-1">
                         We created this page to act as a better viewing medium for our three-dimensional result since it is not possible to fully showcase them in images.
