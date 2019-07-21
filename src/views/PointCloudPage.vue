@@ -89,7 +89,7 @@
                 _.forEach(loadedData, function (datum, idx) {
                     datum = datum.split(' ')
                     positions[3*idx] = parseFloat(datum[0]);
-                    positions[3*idx+1] = parseFloat(datum[1]);
+                    positions[3*idx+1] = -parseFloat(datum[1]);
                     positions[3*idx+2] = parseFloat(datum[2]);
                     colors[3*idx] = parseFloat(datum[3])/255;
                     colors[3*idx+1] = parseFloat(datum[4])/255;
@@ -101,7 +101,8 @@
                 geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
                 geometry.addAttribute( 'color', new THREE.BufferAttribute( colors, 3));
                 geometry.addAttribute( 'scale', new THREE.BufferAttribute( scales, 1 ) );
-                geometry.rotateX(90)
+                // Rotationg geometry by 90 degrees / 1.5708 radians to match the images
+                geometry.rotateZ('-1.5708')
                 // Creating materials
                 let material = new THREE.PointsMaterial({
                     vertexColors: THREE.VertexColors,
